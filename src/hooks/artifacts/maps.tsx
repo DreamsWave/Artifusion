@@ -4,7 +4,7 @@ import type { GetAllMapsApiQuery } from "artifacts-api-client";
 
 export const useMapsGetAll = (params?: GetAllMapsApiQuery) => {
   return useQuery({
-    queryKey: ["artifacts/maps"],
+    queryKey: ["artifacts/maps", params],
     queryFn: async () => {
       const { data } = await artifactsApi.maps.getAll(params);
       return data;
