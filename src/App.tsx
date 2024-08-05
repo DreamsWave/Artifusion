@@ -1,4 +1,5 @@
 import "@/App.css";
+import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import QueryProvider from "@/providers/query-provider";
 import RouterProvider from "@/providers/router-provider";
@@ -11,6 +12,7 @@ function App() {
         <ThemeProvider defaultTheme="dark" storageKey="ui-theme">
           <TooltipProvider>
             <RouterProvider />
+            <Toaster />
           </TooltipProvider>
         </ThemeProvider>
       </QueryProvider>
