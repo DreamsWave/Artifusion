@@ -1,8 +1,8 @@
-import { createBrowserRouter } from "react-router-dom";
-import WelcomePage from "@/routes/welcome";
+import Layout from "@/layout";
 import DashboardPage from "@/routes/dashboard";
 import ErrorPage from "@/routes/error-page";
-import Layout from "./layout";
+import WelcomePage from "@/routes/welcome";
+import { createBrowserRouter } from "react-router-dom";
 
 const router = createBrowserRouter([
   {

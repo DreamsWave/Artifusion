@@ -1,21 +1,20 @@
 import Link from "@/components/link";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
+import { getTokenFromLocalStorage, setTokenToLocalStorage } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "@/components/ui/button";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
 import { Link as RouterLink } from "react-router-dom";
+import { z } from "zod";
 
 const formSchema = z.object({
   token: z.string().min(2, {
@@ -24,7 +23,7 @@ const formSchema = z.object({
 });
 
 const Login = () => {
-  const [token, setToken] = useState<string | null>(null);
+  const [token, setToken] = useState<string | null>(getTokenFromLocalStorage());
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -36,13 +35,14 @@ const Login = () => {
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log("submit");
     setToken(values.token);
+    setTokenToLocalStorage(values.token);
   }
 
   if (token) {
     return (
       <Button asChild>
         <RouterLink to="dashboard" className="mt-auto">
-          Login
+          Start
         </RouterLink>
       </Button>
     );

@@ -7,7 +7,7 @@ import moment from "moment";
 
 const Loading = () => (
   <div className="flex flex-col gap-2">
-    {[...Array(3)].map((e, i) => (
+    {[...Array(3)].map((_e, i) => (
       <div key={generateKey(String(i))} className="flex flex-col gap-2">
         <Skeleton className="h-3 w-20" />
         <Skeleton className="h-3" />

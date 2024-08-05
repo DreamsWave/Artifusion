@@ -1,29 +1,15 @@
-import { artifactsApi } from "@/lib/artifacts/artifacts-api";
-import { useState, useEffect } from "react";
-import Announcements from "./announcements";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
-import { cn } from "@/lib/utils";
+import { Card, CardContent } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
+import Announcements from "@/features/server-info/announcements";
+import { useGetStatus } from "@/hooks/artifacts";
+import { cn } from "@/lib/utils";
 
 const ServerInfo = () => {
-  const [statusData, setStatusData] =
-    useState<Awaited<ReturnType<typeof artifactsApi.getStatus>>>();
+  const { data, error } = useGetStatus();
 
-  useEffect(() => {
-    const fetchStatus = async () => {
-      try {
-        const response = await artifactsApi.getStatus();
-        setStatusData(response);
-      } catch (error) {
-        console.error("Error fetching status:", error);
-      }
-    };
-    fetchStatus();
-  }, []);
-
-  // if (!statusData) return <div>Loading...</div>;
+  if (error) return <div>Failed to load</div>;
 
   return (
     <Card>
@@ -46,48 +32,43 @@ const ServerInfo = () => {
               <Badge
                 className={cn(
                   "bg-gray-500 hover:bg-gray-500",
-                  statusData?.data.status === "online" &&
-                    "bg-green-600 hover:bg-green-600"
+                  data?.status === "online" && "bg-green-600 hover:bg-green-600"
                 )}
               >
-                {statusData?.data.status ? statusData?.data.status : "..."}
+                {data?.status}
               </Badge>
             </div>
             <div className="inline-flex gap-2">
               Version:{" "}
-              {statusData?.data.version ? (
-                statusData?.data.version
-              ) : (
-                <Skeleton className="h-6 w-8" />
-              )}
+              {data?.version ? data?.version : <Skeleton className="h-6 w-8" />}
             </div>
             <div className="inline-flex gap-2">
               Characters online:{" "}
-              {statusData?.data.characters_online ? (
-                statusData?.data.characters_online
+              {data?.characters_online ? (
+                data?.characters_online
               ) : (
                 <Skeleton className="h-6 w-10" />
               )}
             </div>
             <div className="inline-flex gap-2">
               Last wipe:{" "}
-              {statusData?.data.last_wipe ? (
-                statusData?.data.last_wipe
+              {data?.last_wipe ? (
+                data?.last_wipe
               ) : (
                 <Skeleton className="h-6 w-20" />
               )}
             </div>
             <div className="inline-flex gap-2">
               Next wipe:{" "}
-              {statusData?.data.next_wipe ? (
-                statusData?.data.next_wipe
+              {data?.next_wipe ? (
+                data?.next_wipe
               ) : (
                 <Skeleton className="h-6 w-20" />
               )}
             </div>
           </div>
         </div>
-        <Announcements announcements={statusData?.data.announcements} />
+        <Announcements announcements={data?.announcements} />
       </CardContent>
     </Card>
   );
