@@ -1,9 +1,13 @@
+import Sidebar from "@/features/sidebar/sidebar";
 import { Outlet } from "react-router-dom";
 
 const Layout = () => {
   return (
     <>
-      <Outlet />
+      <Sidebar />
+      <div className="pl-14">
+        <Outlet />
+      </div>
     </>
   );
 };
