@@ -11,8 +11,8 @@ import DropdownMenuItem from "@/features/character-commands/move-dropdown/dropdo
 import DropdownSubmenu from "@/features/character-commands/move-dropdown/dropdown-submenu";
 import { useMaps } from "@/hooks/artifacts/use-maps";
 import { artifactsApi } from "@/lib/artifacts/artifacts-api";
+import { runErrorToast, runSuccessToast } from "@/lib/toast";
 import type { ArtifactsMap } from "@/types/artifacts.types";
-import { ArtifactsError } from "artifacts-api-client";
 import {
   ClipboardList,
   Gem,
@@ -22,7 +22,6 @@ import {
   PencilRuler,
   StickyNote,
 } from "lucide-react";
-import { toast } from "sonner";
 
 export interface MoveDropdownProps {
   name: string;
@@ -37,15 +36,11 @@ const MoveDropdown = ({ name }: MoveDropdownProps) => {
         x: map.x,
         y: map.y,
       });
-      toast.success(
-        `Character ${name} successfully moved to ${map?.content?.code ?? map.name} { x: ${map.x}, y: ${map.y} }. Cooldown ${responseMove.data.cooldown.total_seconds} seconds`,
-      );
+
+      const resultMessage = `Character ${name} successfully moved to ${map?.content?.code ?? map.name} { x: ${map.x}, y: ${map.y} }.`;
+      runSuccessToast(resultMessage, responseMove.data.cooldown.total_seconds);
     } catch (error) {
-      if (error instanceof ArtifactsError) {
-        toast.warning(error.message);
-      } else {
-        toast.error("An error occurred while moving the character.");
-      }
+      runErrorToast(error);
     }
   };
 
