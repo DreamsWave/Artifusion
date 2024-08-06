@@ -13,6 +13,7 @@ import { useMaps } from "@/hooks/artifacts/use-maps";
 import { artifactsApi } from "@/lib/artifacts/artifacts-api";
 import { runErrorToast, runSuccessToast } from "@/lib/toast";
 import type { ArtifactsMap } from "@/types/artifacts.types";
+import { useQueryClient } from "@tanstack/react-query";
 import {
   ClipboardList,
   Gem,
@@ -29,6 +30,7 @@ export interface MoveDropdownProps {
 
 const MoveDropdown = ({ name }: MoveDropdownProps) => {
   const { data: maps, isFetched } = useMaps();
+  const queryClient = useQueryClient();
 
   const handleMoveToMap = async (map: ArtifactsMap) => {
     try {
@@ -39,6 +41,7 @@ const MoveDropdown = ({ name }: MoveDropdownProps) => {
 
       const resultMessage = `Character ${name} successfully moved to ${map?.content?.code ?? map.name} { x: ${map.x}, y: ${map.y} }.`;
       runSuccessToast(resultMessage, responseMove.data.cooldown.total_seconds);
+      queryClient.invalidateQueries({ queryKey: ["artifacts/my/characters"] });
     } catch (error) {
       runErrorToast(error);
     }

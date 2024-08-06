@@ -13,7 +13,7 @@ const CharacterCommandsPanel = ({
   const [character] = characters;
 
   return (
-    <div className="flex w-full gap-2 px-1">
+    <div className="flex w-full gap-2">
       <MoveDropdown name={character.name} />
       <FightButton name={character.name} />
       <GatheringButton name={character.name} />

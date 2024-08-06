@@ -9,7 +9,7 @@ const ErrorPage = () => {
   const error = useRouteError();
   const navigate = useNavigate();
 
-  console.log(error);
+  console.error(error);
 
   let errorMessage: string;
   if (isRouteErrorResponse(error)) {

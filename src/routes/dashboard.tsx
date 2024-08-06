@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import CharacterCommandsPanel from "@/features/character-commands/character-commands-panel";
+import CharacterStats from "@/features/character-stats/character-stats";
 import CreateCharacterDialog from "@/features/create-character-dialog";
 import { useMyCharactersGetAll } from "@/hooks/artifacts/my-characters";
 
@@ -21,9 +22,9 @@ const DashboardPage = () => {
     );
 
   return (
-    <main className="flex flex-col gap-2">
-      <Tabs defaultValue={data?.[0].name} className="p-1">
-        <TabsList className="h-fit w-full bg-transparent">
+    <main>
+      <Tabs defaultValue={data?.[0].name} className="p-2">
+        <TabsList className="h-fit w-full bg-transparent p-0">
           <div className="grid w-full grid-cols-5 justify-between gap-2">
             {data?.map((character) => (
               <TabsTrigger key={character.name} value={character.name} asChild>
@@ -43,13 +44,11 @@ const DashboardPage = () => {
         </TabsList>
 
         {data?.map((character) => (
-          <TabsContent
-            key={character.name}
-            value={character.name}
-            className="mt-1"
-          >
-            <CharacterCommandsPanel characters={[character]} />
-            Name: {character.name}
+          <TabsContent key={character.name} value={character.name}>
+            <div className="grid gap-2">
+              <CharacterCommandsPanel characters={[character]} />
+              <CharacterStats name={character.name} />
+            </div>
           </TabsContent>
         ))}
       </Tabs>

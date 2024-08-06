@@ -19,5 +19,8 @@ export const useMyCharactersGetAll = () => {
       const { data } = await artifactsApi.myCharacters.getAll();
       return data;
     },
+
+    staleTime: 1000 * 10,
+    refetchInterval: 1000 * 5,
   });
 };

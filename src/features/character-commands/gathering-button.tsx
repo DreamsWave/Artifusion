@@ -1,12 +1,14 @@
 import { Button } from "@/components/ui/button";
 import { artifactsApi } from "@/lib/artifacts/artifacts-api";
 import { runErrorToast, runSuccessToast } from "@/lib/toast";
+import { useQueryClient } from "@tanstack/react-query";
 
 export interface GatheringButtonProps {
   name: string;
 }
 
 const GatheringButton = ({ name }: GatheringButtonProps) => {
+  const queryClient = useQueryClient();
   async function handleGathering() {
     try {
       const responseGathering = await artifactsApi.myCharacters.gathering(name);
@@ -16,6 +18,7 @@ const GatheringButton = ({ name }: GatheringButtonProps) => {
         resultMessage,
         responseGathering.data.cooldown.total_seconds,
       );
+      queryClient.invalidateQueries({ queryKey: ["artifacts/my/characters"] });
     } catch (error) {
       runErrorToast(error);
     }

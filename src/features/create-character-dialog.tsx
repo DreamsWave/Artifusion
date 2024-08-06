@@ -27,13 +27,10 @@ import {
 } from "@/components/ui/select";
 import { ACTIFACTS_SKINS } from "@/config/constants";
 import { artifactsApi } from "@/lib/artifacts/artifacts-api";
+import { runErrorToast, runSuccessToast } from "@/lib/toast";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  ArtifactsError,
-  type CreateCharacterApiBody,
-} from "artifacts-api-client";
+import type { CreateCharacterApiBody } from "artifacts-api-client";
 import { useForm } from "react-hook-form";
-import { toast } from "sonner";
 import { z } from "zod";
 
 const formSchema = z.object({
@@ -69,15 +66,10 @@ const CreateCharacterDialog = () => {
     const newCharacter = { name, skin };
     try {
       const response = await artifactsApi.characters.create(newCharacter);
-      console.log(response);
-      toast.success(`Character ${name} created`);
+      console.log(response.message);
+      runSuccessToast(`Character ${name} created`);
     } catch (error) {
-      if (error instanceof ArtifactsError) {
-        if (error.code === 494) toast.warning(error.message);
-        if (error.code === 495) toast.warning(error.message);
-      } else {
-        toast.error("An error occurred while creating the character.");
-      }
+      runErrorToast(error);
     }
   }
 
