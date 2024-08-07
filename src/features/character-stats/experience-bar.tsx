@@ -5,9 +5,7 @@ import { getProgress } from "@/lib/utils";
 const ExperienceBar = ({ name }: { name: string }) => {
   const { data: character } = useCharacter(name);
 
-  console.log(character);
-
-  if (!character) return <div>Loading...</div>;
+  if (!character) return null;
 
   return (
     <div className="relative flex h-8 gap-2">

@@ -6,7 +6,13 @@ import CharacterEquipment from "@/features/character-stats/character-equipment";
 import CharacterTabs from "@/features/character-stats/character-tabs";
 import ExperienceBar from "@/features/character-stats/experience-bar";
 import { useCharacter } from "@/hooks/artifacts/use-character";
-import { getCooldown, getProgress } from "@/lib/utils";
+import { useMaps } from "@/hooks/artifacts/use-maps";
+import {
+  getCooldown,
+  getMapByCoordinates,
+  getMapName,
+  getProgress,
+} from "@/lib/utils";
 import { Coins, Heart, Leaf, Locate } from "lucide-react";
 
 export interface CharacterStatsProps {
@@ -15,6 +21,12 @@ export interface CharacterStatsProps {
 
 const CharacterStats = ({ name }: CharacterStatsProps) => {
   const { data: character, isFetched } = useCharacter(name);
+  const { data: maps } = useMaps();
+  const currentMap =
+    character && maps
+      ? getMapByCoordinates({ x: character.x, y: character.y }, maps)
+      : null;
+  const currentMapName = currentMap ? getMapName(currentMap) : null;
 
   if (!character) {
     return <div>Character not found</div>;
@@ -46,7 +58,7 @@ const CharacterStats = ({ name }: CharacterStatsProps) => {
             </Badge>
             <Badge variant="outline" className="gap-2 text-base">
               <Locate className="h-4 w-4 fill-blue-600 stroke-blue-600" />
-              {character.x} {character.y}
+              {`x: ${character.x} y: ${character.y}`} {currentMapName}
             </Badge>
           </div>
           {character.cooldown_expiration && (

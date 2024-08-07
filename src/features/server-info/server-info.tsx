@@ -13,17 +13,17 @@ const ServerInfo = () => {
 
   return (
     <Card>
-      <CardContent className="pt-6 grid grid-cols-2 gap-4">
+      <CardContent className="grid grid-cols-2 gap-4 pt-6">
         <div>
-          <div className="flex gap-2 justify-center mb-4">
-            <h2 className="text-4xl">ArtifApp</h2>
+          <div className="mb-4 flex justify-center gap-2">
+            <h2 className="text-4xl">Artifusion</h2>
           </div>
           <Separator />
           <div className="flex flex-col gap-3 py-4">
             <div className="flex gap-2">
               <a
                 href="https://artifactsmmo.com/"
-                className="text-slate-500 hover:text-slate-700 transition-all"
+                className="text-slate-500 transition-all hover:text-slate-700"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -32,7 +32,8 @@ const ServerInfo = () => {
               <Badge
                 className={cn(
                   "bg-gray-500 hover:bg-gray-500",
-                  data?.status === "online" && "bg-green-600 hover:bg-green-600"
+                  data?.status === "online" &&
+                    "bg-green-600 hover:bg-green-600",
                 )}
               >
                 {data?.status}

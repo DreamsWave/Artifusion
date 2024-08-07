@@ -37,6 +37,7 @@ export const getAllMaps = async () => {
         );
       }
       maps.empty = allMaps.filter((mp) => mp.content === null);
+      maps.all = [...allMaps];
     }
   }
 

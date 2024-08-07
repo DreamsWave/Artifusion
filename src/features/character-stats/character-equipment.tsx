@@ -21,6 +21,7 @@ const CharacterEquipment = ({ name }: { name: string }) => {
       <div className="flex justify-center p-1">
         <img
           src={`https://artifactsmmo.com/images/characters/${character?.skin}.png`}
+          alt="character-skin"
         />
       </div>
       <EquipmentSlot>Amulet</EquipmentSlot>

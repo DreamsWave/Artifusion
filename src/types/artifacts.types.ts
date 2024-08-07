@@ -12,7 +12,8 @@ export type MapType =
   | "bank"
   | "grand_exchange"
   | "tasks_master"
-  | "empty";
+  | "empty"
+  | "all";
 
 export type ArtifactsMap = GetMapApiResult["data"];
 export type ArtifactsMaps = GetAllMapsApiResult["data"];

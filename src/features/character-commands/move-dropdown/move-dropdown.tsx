@@ -21,6 +21,7 @@ import {
   Landmark,
   PawPrint,
   PencilRuler,
+  Rows4,
   StickyNote,
 } from "lucide-react";
 
@@ -104,8 +105,14 @@ const MoveDropdown = ({ name }: MoveDropdownProps) => {
           <DropdownSubmenu
             handleMoveToMap={handleMoveToMap}
             maps={maps.empty}
-            title="Other"
+            title="Empty"
             Icon={StickyNote}
+          />
+          <DropdownSubmenu
+            handleMoveToMap={handleMoveToMap}
+            maps={maps.all}
+            title="All"
+            Icon={Rows4}
           />
         </DropdownMenuGroup>
       </DropdownMenuContent>

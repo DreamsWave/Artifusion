@@ -6,7 +6,7 @@
     "distDir": "../dist"
   },
   "package": {
-    "productName": "artifapp",
+    "productName": "Artifusion",
     "version": "0.0.1"
   },
   "tauri": {
@@ -19,7 +19,7 @@
     },
     "windows": [
       {
-        "title": "artifapp",
+        "title": "Artifusion",
         "width": 800,
         "height": 600,
         "resizable": false
@@ -31,7 +31,7 @@
     "bundle": {
       "active": true,
       "targets": "all",
-      "identifier": "com.artifapp.dev",
+      "identifier": "com.artifusion.dev",
       "icon": [
         "icons/32x32.png",
         "icons/128x128.png",
